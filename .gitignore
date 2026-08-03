@@ -318,3 +318,23 @@ development/stage381/*
 !development/stage381/environment-results/
 development/stage381/environment-results/*
 !development/stage381/environment-results/stage381_macos_environment_result.json
+
+# Stage382 public upstream-finalization recovery package
+!development/stage382/
+development/stage382/*
+
+!development/stage382/policy-profiles/
+development/stage382/policy-profiles/*
+!development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json
+!development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.sha256
+
+!development/stage382/README.md
+!development/stage382/verify_stage382_upstream_finalization.py
+!development/stage382/test_stage382_fail_closed.py
+!development/stage382/stage382_upstream_finalization_result.json
+!development/stage382/stage382_upstream_finalization_result.sha256
+!development/stage382/stage382_policy_activation_manifest.json
+!development/stage382/stage382_policy_activation_manifest.sha256
+
+# Stage382 public workflow
+!.github/workflows/stage382-upstream-finalization-recovery.yml

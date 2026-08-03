@@ -1,0 +1,266 @@
+{
+  "check_count": 29,
+  "checks": [
+    {
+      "actual": false,
+      "critical": true,
+      "expected": false,
+      "name": "policy_new_ots_proof_generation_forbidden",
+      "passed": true
+    },
+    {
+      "actual": "qsp-dual-timestamp-final-acceptance-v1",
+      "critical": true,
+      "expected": "qsp-dual-timestamp-final-acceptance-v1",
+      "name": "policy_profile_name_valid",
+      "passed": true
+    },
+    {
+      "actual": 2,
+      "critical": true,
+      "expected": 2,
+      "name": "policy_required_verified_proof_count",
+      "passed": true
+    },
+    {
+      "actual": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+      "critical": true,
+      "expected": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+      "name": "policy_sha256_record_path_valid",
+      "passed": true
+    },
+    {
+      "actual": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+      "critical": true,
+      "expected": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+      "name": "policy_sha256_valid",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:.stage382-development-policy.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage379/stage379_scoped_total_verification_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage380/stage380_independent_verification_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.sha256",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:docs/qkd/stage378_qkd_safety_metadata_binding_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "required_file_present:docs/verification/stage381/stage381_cross_platform_verification_package_result.json",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "critical": false,
+      "expected": true,
+      "name": "stage377_effective_final_acceptance_complete",
+      "passed": false
+    },
+    {
+      "actual": 1,
+      "critical": false,
+      "expected": 2,
+      "name": "stage377_verified_proof_count_complete",
+      "passed": false
+    },
+    {
+      "actual": 0,
+      "critical": true,
+      "expected": 0,
+      "name": "stage378_forbidden_public_files_empty",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "critical": true,
+      "expected": false,
+      "name": "stage378_private_material_not_detected",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "critical": false,
+      "expected": true,
+      "name": "stage378_qkd_metadata_bound",
+      "passed": false
+    },
+    {
+      "actual": false,
+      "critical": true,
+      "expected": false,
+      "name": "stage378_raw_qkd_key_not_published",
+      "passed": true
+    },
+    {
+      "actual": false,
+      "critical": false,
+      "expected": true,
+      "name": "stage378_stage377_final_acceptance_verified",
+      "passed": false
+    },
+    {
+      "actual": true,
+      "critical": false,
+      "expected": true,
+      "name": "stage378_stage377_hash_valid",
+      "passed": true
+    },
+    {
+      "actual": 0,
+      "critical": true,
+      "expected": 0,
+      "name": "stage380_critical_failure_count_zero",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "stage380_package_integrity_verified",
+      "passed": true
+    },
+    {
+      "actual": 0,
+      "critical": true,
+      "expected": 0,
+      "name": "stage381_critical_failure_count_zero",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "stage381_cross_platform_reverification_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "stage381_same_canonical_result_sha256_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "stage381_same_decision_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "stage381_same_exit_code_verified",
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "stage381_same_stage380_result_sha256_verified",
+      "passed": true
+    }
+  ],
+  "critical_failure_count": 0,
+  "critical_failures": [],
+  "decision": "policy_bound_final_acceptance_pending",
+  "development_only": true,
+  "downstream_observation": {
+    "stage378_decision": "qkd_binding_pending_previous_stage",
+    "stage378_qkd_metadata_bound": false,
+    "stage378_ready": false,
+    "stage378_result_path": "docs/qkd/stage378_qkd_safety_metadata_binding_result.json",
+    "stage378_result_sha256": "deb30c486d3569701ef87cdd0b08bb65bb136808b6ef88d5d3e61c181d03dfbc",
+    "stage378_stage377_final_acceptance_verified": false,
+    "stage378_stage377_hash_valid": true,
+    "stage379_formal_acceptance": false,
+    "stage379_pipeline_completed": false,
+    "stage379_result_sha256": "b0c43c5969190b19a86fee800c17fa4b62ef5726d848003c8213c74311b1c15e",
+    "stage380_package_integrity_verified": true,
+    "stage380_result_sha256": "f0169f77e5b1093c0e49df20ec69b9f598ac7b94e0b63e52ed5dedd0006ba2e3",
+    "stage381_common_canonical_result_sha256": "d248ee64a524cea14ecb1a7e75a977bc53a6a44ed98ff48ef1ca159932eed1d9",
+    "stage381_cross_platform_reverification_verified": true,
+    "stage381_result_sha256": "b9f91738555219d50f1e2b91e6260fc3e2096e38f6378fed0bc928705df6dabe"
+  },
+  "engine": "Stage382 Upstream Finalization Recovery & Policy Activation Gate",
+  "errors": [],
+  "execution_mode": "development",
+  "fail_closed": true,
+  "formal_acceptance": false,
+  "pipeline_completed": false,
+  "policy_activation_state": {
+    "automatic_acceptance_upgrade_performed": false,
+    "downstream_reverification_required": false,
+    "existing_stage377_evidence_reused": true,
+    "new_timestamp_proof_generated": false,
+    "policy_activated": false,
+    "stage378_ready": false,
+    "stage378_reverification_required": false
+  },
+  "policy_profile": {
+    "name": "qsp-dual-timestamp-final-acceptance-v1",
+    "path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+    "sha256": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+    "sha256_record_path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.sha256",
+    "version": "1.0.0"
+  },
+  "public_release_allowed": false,
+  "result_sha256": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
+  "source_stage": 381,
+  "stage": 382,
+  "statement": "Stage382 observes Stage377 completion under a versioned policy. It does not fabricate upstream completion and does not automatically upgrade formal acceptance.",
+  "upstream_state": {
+    "stage377_complete": false,
+    "stage377_decision": "rfc3161_verified_opentimestamps_pending",
+    "stage377_effective_final_acceptance": false,
+    "stage377_result_path": "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
+    "stage377_result_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+    "stage377_verified_proof_count": 1
+  },
+  "verification_mode": "upstream_finalization_recovery_and_policy_activation",
+  "verification_status": "verified_pending_upstream"
+}

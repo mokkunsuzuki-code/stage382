@@ -1,0 +1,93 @@
+{
+  "activation_state": {
+    "automatic_acceptance_upgrade_performed": false,
+    "downstream_reverification_required": false,
+    "existing_stage377_evidence_reused": true,
+    "new_timestamp_proof_generated": false,
+    "policy_activated": false,
+    "stage378_ready": false,
+    "stage378_reverification_required": false
+  },
+  "development_only": true,
+  "fail_closed": true,
+  "formal_acceptance": false,
+  "manifest_name": "Stage382 Policy Activation Manifest",
+  "manifest_sha256": "5f77a568edd697673b36adc9fc8b0af484fbb1412c9a2970de56038a3267ab90",
+  "manifest_version": "1.1.0-development",
+  "pipeline_completed": false,
+  "policy_profile": {
+    "name": "qsp-dual-timestamp-final-acceptance-v1",
+    "path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json",
+    "sha256": "1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5",
+    "sha256_record_path": "development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.sha256",
+    "version": "1.0.0"
+  },
+  "preservation_statement": "Stage382 binds the versioned policy and Stage377 through Stage381 records without overwriting any upstream result.",
+  "public_release_allowed": false,
+  "required_reverification_order": [
+    "stage377",
+    "stage378",
+    "stage379",
+    "stage380",
+    "stage381",
+    "stage382"
+  ],
+  "source_stage": 381,
+  "stage": 382,
+  "stage382_result": {
+    "critical_failure_count": 0,
+    "decision": "policy_bound_final_acceptance_pending",
+    "embedded_result_sha256": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
+    "file_sha256": "36b316b900ddcd304c48cad3a2d4b9db20b791aff418cd16f58c49262fbda5d6",
+    "path": "development/stage382/stage382_upstream_finalization_result.json",
+    "verification_status": "verified_pending_upstream"
+  },
+  "upstream_bindings": {
+    "stage377": {
+      "decision": "rfc3161_verified_opentimestamps_pending",
+      "effective_final_acceptance": false,
+      "embedded_result_sha256": "03135b9fe51b055c356179fdb927ad45317393f94b01b27250c1dd06312d098f",
+      "file_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
+      "path": "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
+      "verified_proof_count": 1
+    },
+    "stage378": {
+      "decision": "qkd_binding_pending_previous_stage",
+      "embedded_result_sha256": "5c67a4160b06efb06e7608acfcf7e46d27895adeb3d69cd8a7fe216ba95ef86e",
+      "evidence_classification": "metadata_only",
+      "evidence_level": "QKD-E1",
+      "file_sha256": "deb30c486d3569701ef87cdd0b08bb65bb136808b6ef88d5d3e61c181d03dfbc",
+      "path": "docs/qkd/stage378_qkd_safety_metadata_binding_result.json",
+      "private_material_content_detected": false,
+      "qkd_metadata_bound": false,
+      "raw_qkd_key_publication_detected": false,
+      "stage377_final_acceptance_verified": false,
+      "stage377_hash_valid": true
+    },
+    "stage379": {
+      "decision": "development_verification_pending_upstream",
+      "embedded_result_sha256": "1da749df88d09366f911dac82e2180ecd468a1f39a8feddd0e93088dc5809df9",
+      "file_sha256": "b0c43c5969190b19a86fee800c17fa4b62ef5726d848003c8213c74311b1c15e",
+      "formal_acceptance": false,
+      "path": "development/stage379/stage379_scoped_total_verification_result.json",
+      "pipeline_completed": false
+    },
+    "stage380": {
+      "critical_failure_count": 0,
+      "decision": "development_package_verified_upstream_pending",
+      "embedded_result_sha256": "f9ee8d519c9f922960743c7f77ec801d90144b43a8e0b562e99379252920580a",
+      "file_sha256": "f0169f77e5b1093c0e49df20ec69b9f598ac7b94e0b63e52ed5dedd0006ba2e3",
+      "package_integrity_verified": true,
+      "path": "development/stage380/stage380_independent_verification_result.json"
+    },
+    "stage381": {
+      "common_canonical_result_sha256": "d248ee64a524cea14ecb1a7e75a977bc53a6a44ed98ff48ef1ca159932eed1d9",
+      "critical_failure_count": 0,
+      "cross_platform_reverification_verified": true,
+      "decision": "cross_platform_reverification_verified_upstream_pending",
+      "embedded_result_sha256": "89b081d8676a921ca6ca8a6821b7e3911747002a1555587798d54c50eca5c885",
+      "file_sha256": "b9f91738555219d50f1e2b91e6260fc3e2096e38f6378fed0bc928705df6dabe",
+      "path": "docs/verification/stage381/stage381_cross_platform_verification_package_result.json"
+    }
+  }
+}

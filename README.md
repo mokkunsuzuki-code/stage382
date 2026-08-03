@@ -1,3 +1,172 @@
+# Stage382: Upstream Finalization Recovery & Policy Activation Gate
+
+日本語：
+
+# 上流最終確定回復・ポリシー有効化ゲート
+
+<!-- STAGE382_ROOT_README_START -->
+
+Stage382 extends Stage381 by binding the unresolved Stage377
+dual-timestamp final-acceptance requirements to a fixed,
+versioned policy profile.
+
+Stage382 preserves Stage377, Stage378, Stage379, Stage380, and
+Stage381. It does not replace or overwrite their verification records.
+
+## What Stage382 Adds
+
+Stage382 adds:
+
+1. A versioned dual-timestamp final-acceptance policy
+2. SHA-256 binding of the policy profile
+3. Stage377 completion-state observation
+4. Mandatory Stage378 reverification after Stage377 completion
+5. Mandatory Stage379, Stage380, and Stage381 reverification
+6. Fail-Closed handling of policy and publication-boundary violations
+7. A policy-activation manifest binding Stage377 through Stage381
+
+## Required Recovery Order
+
+```text
+Stage377 dual-timestamp final acceptance
+                    |
+                    v
+Stage378 QKD safety metadata rebinding
+                    |
+                    v
+Stage379 scoped total verification
+                    |
+                    v
+Stage380 deterministic offline verification
+                    |
+                    v
+Stage381 cross-platform reverification
+                    |
+                    v
+Stage382 policy-bound verification
+```
+
+## Current State
+
+```text
+Stage377 decision:
+rfc3161_verified_opentimestamps_pending
+
+Stage377 verified proof count:
+1
+
+Stage377 effective final acceptance:
+false
+
+Stage378 ready:
+false
+
+Stage382 decision:
+policy_bound_final_acceptance_pending
+
+Stage382 verification status:
+verified_pending_upstream
+
+Critical failure count:
+0
+```
+
+This is the intended Fail-Closed waiting state.
+
+Stage382 does not generate a replacement OpenTimestamps proof and does
+not weaken the requirement for two independently verified timestamp
+proofs.
+
+## Versioned Policy Profile
+
+```text
+Profile:
+qsp-dual-timestamp-final-acceptance-v1
+
+Profile version:
+1.0.0
+
+Policy SHA-256:
+1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5
+```
+
+The policy requires:
+
+- RFC3161 verification
+- OpenTimestamps verification
+- `verified_proof_count == 2`
+- `effective_final_acceptance == true`
+- Stage378 QKD metadata rebinding
+- Stage379 scoped reverification
+- Stage380 deterministic offline reverification
+- Stage381 Ubuntu, Windows, and macOS reverification
+- no automatic formal-acceptance upgrade
+- no publication of private or secret material
+
+## Formal-Acceptance Boundary
+
+Stage382 remains development-only.
+
+```text
+formal_acceptance = false
+pipeline_completed = false
+public_release_allowed = false
+```
+
+A valid policy-integrity check is not equivalent to production formal
+acceptance.
+
+## Security and Publication Boundary
+
+The following directories must remain private:
+
+```text
+core/
+private_core/
+private/
+secrets/
+keys/
+imported/
+```
+
+Stage382 does not publish private keys, credentials, authentication
+tokens, raw QKD secret material, raw timestamp proof binaries, or
+private-core material.
+
+## Public Stage382 Evidence
+
+Public Stage382 evidence is available under:
+
+```text
+docs/verification/stage382/
+```
+
+It includes:
+
+- the versioned policy profile
+- the policy SHA-256 record
+- the upstream-finalization result
+- the result SHA-256 record
+- the policy-activation manifest
+- the manifest SHA-256 record
+
+## License
+
+This repository is licensed under the MIT License.
+
+See the repository-level `LICENSE` file for the complete license text.
+
+<!-- STAGE382_ROOT_README_END -->
+
+## Preserved Stage381 Foundation
+
+The existing Stage381 documentation and inherited Stage380 foundation
+remain preserved below.
+Preserved Stage381 Foundation
+
+The existing Stage381 documentation and inherited Stage380 foundation
+remain preserved below.
+
 # Stage381: Deterministic Reverification & Reproducibility Gate
 
 Stage381 extends Stage380 with a cross-platform deterministic

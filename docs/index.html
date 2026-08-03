@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="google" content="notranslate">
-  <title>Stage381: Cross-Platform Deterministic Reverification &amp; Reproducibility Gate</title>
+  <title>Stage382: Upstream Finalization Recovery &amp; Policy Activation Gate</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f6f8fa; color: #24292f; }
     header { background: #0d1117; color: white; padding: 44px 32px; }
@@ -28,52 +28,49 @@
 
 
 
-<!-- STAGE381_CURRENT_PAGE_HEADER_START -->
+<!-- STAGE382_CURRENT_PAGE_HEADER_START -->
 <script>
   document.title =
-    "Stage381: Cross-Platform Deterministic Reverification & Reproducibility Gate";
+    "Stage382: Upstream Finalization Recovery & Policy Activation Gate";
 </script>
 
 <section
-  id="stage381-current-page-header"
-  aria-label="Stage381 current stage"
+  id="stage382-current-page-header"
+  aria-label="Stage382 current stage"
 >
-  <h1>Stage381</h1>
+  <h1>Stage382</h1>
 
   <h2>
-    Cross-Platform Deterministic Reverification
-    &amp; Reproducibility Gate
+    Upstream Finalization Recovery
+    &amp; Policy Activation Gate
   </h2>
 
   <p>
-    Stage380の決定論的オフライン独立検証を保持したまま、
-    Ubuntu、Windows、macOSの異なる環境で同一入力を再検証し、
-    同一判定、同一終了コード、同一Stage380結果ハッシュ、
-    同一正規化結果ハッシュになることを検証します。
+    Stage381までのクロスプラットフォーム決定論的再検証を保持したまま、
+    Stage377の二重タイムスタンプ最終承認条件を、
+    バージョン固定されたポリシープロファイルへ結合します。
   </p>
 
   <p>
-    2026年のGitHub Actions実行において、
-    Ubuntu、Windows、macOS、および最終比較ジョブの
-    すべてが成功しました。
+    Stage377が完了した後は、Stage378、Stage379、Stage380、
+    Stage381の順序で再検証することを要求します。
+    未完了の上流結果を自動的に完了扱いすることはありません。
   </p>
 
   <p>
     <strong>Current decision:</strong>
-    <code>cross_platform_reverification_verified_upstream_pending</code>
+    <code>policy_bound_final_acceptance_pending</code>
   </p>
 
   <p>
-    <strong>Cross-platform reverification:</strong>
-    <code>true</code>
+    <strong>Stage377 verified proof count:</strong>
+    <code>1</code>
     /
     <strong>Critical failures:</strong>
     <code>0</code>
   </p>
 </section>
-<!-- STAGE381_CURRENT_PAGE_HEADER_END -->
-
-
+<!-- STAGE382_CURRENT_PAGE_HEADER_END -->
 
 <header>
   <h1>Stage376</h1>
@@ -313,8 +310,9 @@ Stage331 verifies not only file integrity, but whether the evidence files belong
   <li><a href="report/execution_session.json">docs/report/execution_session.json</a></li>
 </ul>
 
-</section>
 
+
+  <ul>
     <li><a href="report/audit_report.json">docs/report/audit_report.json</a></li>
     <li><a href="report/audit_report.html">docs/report/audit_report.html</a></li>
   </ul>
@@ -2328,6 +2326,10 @@ maximum_timestamp_assurance: true
 
 
 
+
+</section>
+<!-- STAGE376_APPEND_ONLY_END -->
+
 <!-- STAGE377_APPEND_ONLY_START -->
 <section id="stage377-production-dual-timestamp-finalization">
 
@@ -3134,5 +3136,181 @@ Verified / Pending / Block</pre>
   </p>
 </section>
 <!-- STAGE381_APPEND_ONLY_END -->
+
+<!-- STAGE382_APPEND_ONLY_START -->
+<section class="card" id="stage382">
+  <h2>
+    Stage382: Upstream Finalization Recovery
+    &amp; Policy Activation Gate
+  </h2>
+
+  <p>
+    Stage382は、Stage377の二重タイムスタンプ最終承認条件を、
+    バージョン固定されたポリシープロファイルとSHA-256へ結合します。
+  </p>
+
+  <p>
+    Stage377からStage381までの既存結果を変更せず、
+    正しい回復順序と現在の待機状態を明示します。
+  </p>
+
+  <h3>Required Recovery Order</h3>
+
+  <p>
+    Stage377 dual-timestamp final acceptance<br>
+    ↓<br>
+    Stage378 QKD safety metadata rebinding<br>
+    ↓<br>
+    Stage379 scoped total verification<br>
+    ↓<br>
+    Stage380 deterministic offline verification<br>
+    ↓<br>
+    Stage381 cross-platform reverification<br>
+    ↓<br>
+    Stage382 policy-bound verification
+  </p>
+
+  <h3>Current State</h3>
+
+  <ul>
+    <li>
+      Stage377 decision:
+      <code>rfc3161_verified_opentimestamps_pending</code>
+    </li>
+    <li>
+      Stage377 verified proof count:
+      <code>1</code>
+    </li>
+    <li>
+      Stage377 effective final acceptance:
+      <code>false</code>
+    </li>
+    <li>
+      Stage378 ready:
+      <code>false</code>
+    </li>
+    <li>
+      Stage382 decision:
+      <code>policy_bound_final_acceptance_pending</code>
+    </li>
+    <li>
+      Verification status:
+      <code>verified_pending_upstream</code>
+    </li>
+    <li>
+      Critical failure count:
+      <code>0</code>
+    </li>
+  </ul>
+
+  <p>
+    これは意図されたFail-Closed待機状態です。
+    Stage377のOpenTimestamps検証が完了するまで、
+    Stage382は正式承認やパイプライン完了を主張しません。
+  </p>
+
+  <h3>Versioned Policy Profile</h3>
+
+  <ul>
+    <li>
+      Profile:
+      <code>qsp-dual-timestamp-final-acceptance-v1</code>
+    </li>
+    <li>
+      Version:
+      <code>1.0.0</code>
+    </li>
+    <li>
+      Policy SHA-256:
+      <code>1819dc41cee56da7f7faabdbdc6dab44326054c9197bf5bd6c52286b7e8e9ea5</code>
+    </li>
+  </ul>
+
+  <h3>Policy Requirements</h3>
+
+  <ul>
+    <li>RFC3161 verification is required.</li>
+    <li>OpenTimestamps verification is required.</li>
+    <li>Two verified timestamp proofs are required.</li>
+    <li>Both proofs must bind the same Stage360 target.</li>
+    <li>A pending timestamp proof cannot satisfy final acceptance.</li>
+    <li>The existing OpenTimestamps proof must be reused.</li>
+    <li>Stage378 must be reverified after Stage377 completion.</li>
+    <li>Stage379 through Stage381 must then be reverified.</li>
+    <li>No automatic formal-acceptance upgrade is allowed.</li>
+  </ul>
+
+  <h3>Public Stage382 Evidence</h3>
+
+  <ul>
+    <li>
+      <a href="./verification/stage382/qsp-dual-timestamp-final-acceptance-v1.json">
+        Stage382 Versioned Policy Profile
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage382/qsp-dual-timestamp-final-acceptance-v1.sha256">
+        Stage382 Policy SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage382/stage382_upstream_finalization_result.json">
+        Stage382 Upstream Finalization Result
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage382/stage382_upstream_finalization_result.sha256">
+        Stage382 Result SHA-256 Record
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage382/stage382_policy_activation_manifest.json">
+        Stage382 Policy Activation Manifest
+      </a>
+    </li>
+    <li>
+      <a href="./verification/stage382/stage382_policy_activation_manifest.sha256">
+        Stage382 Manifest SHA-256 Record
+      </a>
+    </li>
+  </ul>
+
+  <h3>Formal-Acceptance Boundary</h3>
+
+  <ul>
+    <li>
+      Formal acceptance:
+      <code>false</code>
+    </li>
+    <li>
+      Pipeline completed:
+      <code>false</code>
+    </li>
+    <li>
+      Public release allowed:
+      <code>false</code>
+    </li>
+  </ul>
+
+  <h3>Publication Boundary</h3>
+
+  <ul>
+    <li>No private core is published.</li>
+    <li>No secret, credential, token, or private key is published.</li>
+    <li>No raw QKD secret material is published.</li>
+    <li>No raw timestamp proof binary is published.</li>
+    <li>Only reviewed public policy and verification records are published.</li>
+  </ul>
+
+  <p>
+    Stage382 does not modify or overwrite Stage381 or any earlier stage.
+  </p>
+
+  <p>
+    <strong>License:</strong> MIT License
+  </p>
+</section>
+<!-- STAGE382_APPEND_ONLY_END -->
+
 </body>
 </html>

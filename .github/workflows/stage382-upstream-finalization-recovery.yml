@@ -1,0 +1,345 @@
+name: Stage382 Upstream Finalization Recovery and Policy Activation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/stage382-upstream-finalization-recovery.yml"
+      - ".stage382-development-policy.json"
+      - "development/stage382/**"
+      - "development/stage379/**"
+      - "development/stage380/**"
+      - "docs/verification/stage381/**"
+      - "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  stage382-policy-bound-recovery:
+    name: Validate Stage382 recovery state
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Display environment
+        shell: bash
+        run: |
+          python --version
+          echo "runner_os=${{ runner.os }}"
+          echo "stage=382"
+
+      - name: Validate Python syntax
+        shell: bash
+        run: |
+          python -m py_compile \
+            development/stage382/verify_stage382_upstream_finalization.py \
+            development/stage382/test_stage382_fail_closed.py
+
+      - name: Validate Stage382 JSON inputs
+        shell: bash
+        run: |
+          python -m json.tool \
+            .stage382-development-policy.json \
+            > /dev/null
+
+          python -m json.tool \
+            development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json \
+            > /dev/null
+
+          python -m json.tool \
+            docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json \
+            > /dev/null
+
+          python -m json.tool \
+            development/stage379/stage379_scoped_total_verification_result.json \
+            > /dev/null
+
+          python -m json.tool \
+            development/stage380/stage380_independent_verification_result.json \
+            > /dev/null
+
+          python -m json.tool \
+            docs/verification/stage381/stage381_cross_platform_verification_package_result.json \
+            > /dev/null
+
+      - name: Verify Stage382 policy SHA-256
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+
+          profile = Path(
+              "development/stage382/policy-profiles/"
+              "qsp-dual-timestamp-final-acceptance-v1.json"
+          )
+
+          record = Path(
+              "development/stage382/policy-profiles/"
+              "qsp-dual-timestamp-final-acceptance-v1.sha256"
+          )
+
+          recorded_hash, recorded_path = (
+              record.read_text(encoding="utf-8")
+              .strip()
+              .split(maxsplit=1)
+          )
+
+          actual_hash = hashlib.sha256(
+              profile.read_bytes()
+          ).hexdigest()
+
+          if recorded_hash != actual_hash:
+              raise SystemExit(
+                  "Stage382 policy SHA-256 mismatch"
+              )
+
+          if recorded_path != profile.as_posix():
+              raise SystemExit(
+                  "Stage382 policy SHA-256 path mismatch"
+              )
+
+          print("OK: Stage382 policy SHA-256 is valid")
+          print("policy_sha256=" + actual_hash)
+          PY
+
+      - name: Run Stage382 Fail-Closed tests
+        shell: bash
+        run: |
+          python \
+            development/stage382/test_stage382_fail_closed.py
+
+      - name: Generate Stage382 recovery result
+        shell: bash
+        run: |
+          python \
+            development/stage382/verify_stage382_upstream_finalization.py
+
+      - name: Validate Stage382 recovery result
+        shell: bash
+        run: |
+          python -m json.tool \
+            development/stage382/stage382_upstream_finalization_result.json \
+            > /dev/null
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result_path = Path(
+              "development/stage382/"
+              "stage382_upstream_finalization_result.json"
+          )
+
+          result = json.loads(
+              result_path.read_text(encoding="utf-8")
+          )
+
+          allowed_decisions = {
+              "policy_bound_final_acceptance_pending",
+              "policy_bound_stage378_reverification_required",
+              (
+                  "policy_bound_upstream_finalization_ready_"
+                  "for_downstream_reverification"
+              ),
+          }
+
+          decision = result.get("decision")
+
+          if decision not in allowed_decisions:
+              raise SystemExit(
+                  "Unexpected Stage382 decision: "
+                  + repr(decision)
+              )
+
+          if result.get("critical_failure_count") != 0:
+              raise SystemExit(
+                  "Stage382 critical failures detected"
+              )
+
+          if result.get("formal_acceptance") is not False:
+              raise SystemExit(
+                  "Stage382 must not issue formal acceptance"
+              )
+
+          if result.get("pipeline_completed") is not False:
+              raise SystemExit(
+                  "Stage382 must not mark pipeline completed"
+              )
+
+          if result.get("public_release_allowed") is not False:
+              raise SystemExit(
+                  "Stage382 must not permit formal public release"
+              )
+
+          stage377_complete = result.get(
+              "upstream_state",
+              {},
+          ).get(
+              "stage377_complete"
+          )
+
+          policy_activated = result.get(
+              "policy_activation_state",
+              {},
+          ).get(
+              "policy_activated"
+          )
+
+          if stage377_complete != policy_activated:
+              raise SystemExit(
+                  "Stage377 completion and policy activation disagree"
+              )
+
+          print("OK: Stage382 recovery result is valid")
+          print("decision=" + str(decision))
+          print(
+              "stage377_complete="
+              + str(stage377_complete).lower()
+          )
+          print(
+              "policy_activated="
+              + str(policy_activated).lower()
+          )
+          PY
+
+      - name: Rebuild Stage382 result SHA-256 record
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+
+          result = Path(
+              "development/stage382/"
+              "stage382_upstream_finalization_result.json"
+          )
+
+          record = Path(
+              "development/stage382/"
+              "stage382_upstream_finalization_result.sha256"
+          )
+
+          digest = hashlib.sha256(
+              result.read_bytes()
+          ).hexdigest()
+
+          record.write_text(
+              f"{digest}  {result.as_posix()}\n",
+              encoding="utf-8",
+              newline="\n",
+          )
+
+          print(
+              "OK: Stage382 result SHA-256 record rebuilt"
+          )
+          print("result_file_sha256=" + digest)
+          PY
+
+      - name: Validate current activation state
+        id: activation_state
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result = json.loads(
+              Path(
+                  "development/stage382/"
+                  "stage382_upstream_finalization_result.json"
+              ).read_text(encoding="utf-8")
+          )
+
+          complete = result.get(
+              "upstream_state",
+              {},
+          ).get(
+              "stage377_complete"
+          ) is True
+
+          with Path(
+              "/tmp/stage382-activation-state.txt"
+          ).open(
+              "w",
+              encoding="utf-8",
+              newline="\n",
+          ) as file_handle:
+              file_handle.write(
+                  "stage377_complete="
+                  + str(complete).lower()
+                  + "\n"
+              )
+
+          print(
+              "Stage377 completion state: "
+              + str(complete).lower()
+          )
+          PY
+
+          cat /tmp/stage382-activation-state.txt
+
+      - name: Report pending state
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result = json.loads(
+              Path(
+                  "development/stage382/"
+                  "stage382_upstream_finalization_result.json"
+              ).read_text(encoding="utf-8")
+          )
+
+          complete = result.get(
+              "upstream_state",
+              {},
+          ).get(
+              "stage377_complete"
+          ) is True
+
+          if complete:
+              print(
+                  "Stage377 is complete. "
+                  "Downstream Stage379 through Stage381 "
+                  "reverification is now required."
+              )
+          else:
+              print(
+                  "Stage377 remains incomplete. "
+                  "Stage382 is correctly maintaining the "
+                  "Fail-Closed pending state."
+              )
+          PY
+
+      - name: Upload Stage382 verification package
+        uses: actions/upload-artifact@v6
+        with:
+          name: stage382-upstream-finalization-recovery-package
+          path: |
+            .stage382-development-policy.json
+            development/stage382/README.md
+            development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.json
+            development/stage382/policy-profiles/qsp-dual-timestamp-final-acceptance-v1.sha256
+            development/stage382/stage382_upstream_finalization_result.json
+            development/stage382/stage382_upstream_finalization_result.sha256
+            development/stage382/stage382_policy_activation_manifest.json
+            development/stage382/stage382_policy_activation_manifest.sha256
+          if-no-files-found: error
+          retention-days: 30

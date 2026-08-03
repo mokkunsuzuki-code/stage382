@@ -1,0 +1,60 @@
+{
+  "activation_behavior": {
+    "policy_activation_only_after_stage377_completion": true,
+    "required_order": [
+      "stage377",
+      "stage378",
+      "stage379",
+      "stage380",
+      "stage381",
+      "stage382"
+    ],
+    "reverification_required_after_activation": true
+  },
+  "development_only": true,
+  "formal_acceptance": false,
+  "pending_behavior": {
+    "decision": "upstream_finalization_pending",
+    "fail_closed": true,
+    "formal_acceptance": false,
+    "pipeline_completed": false
+  },
+  "pipeline_completed": false,
+  "public_release_allowed": false,
+  "requirements": {
+    "automatic_acceptance_upgrade_allowed": false,
+    "new_timestamp_proof_generation_allowed": false,
+    "policy_profile_required": true,
+    "policy_sha256_binding_required": true,
+    "stage377_effective_final_acceptance_required": true,
+    "stage377_existing_evidence_reused": true,
+    "stage377_verified_proof_count_required": 2,
+    "stage378_reverification_required": true,
+    "stage379_reverification_required": true,
+    "stage380_reverification_required": true,
+    "stage381_cross_platform_reverification_required": true,
+    "stage381_preserved": true
+  },
+  "security_boundary": {
+    "fail_closed": true,
+    "key_publication_allowed": false,
+    "private_core_publication_allowed": false,
+    "private_directory_publication_allowed": false,
+    "raw_qkd_key_publication_allowed": false,
+    "raw_timestamp_binary_publication_allowed": false,
+    "scope_reduction_allowed": false,
+    "secret_publication_allowed": false
+  },
+  "source_stage": 381,
+  "stage": 382,
+  "stage_name": "Upstream Finalization Recovery & Policy Activation Gate",
+  "upstream_boundary": {
+    "stage377_result_must_not_be_overwritten": true,
+    "stage378_result_must_not_be_overwritten": true,
+    "stage379_result_must_not_be_overwritten": true,
+    "stage380_result_must_not_be_overwritten": true,
+    "stage381_result_must_not_be_overwritten": true,
+    "stage382_does_not_fabricate_upstream_completion": true
+  },
+  "verification_mode": "upstream_finalization_recovery_and_policy_activation"
+}

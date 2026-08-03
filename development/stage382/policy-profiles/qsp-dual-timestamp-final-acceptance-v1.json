@@ -1,0 +1,107 @@
+{
+  "controller_source_stage": 381,
+  "decision_requirements": {
+    "all_required_conditions_must_pass": true,
+    "automatic_acceptance_upgrade_allowed": false,
+    "fail_closed": true,
+    "manual_or_verified_pipeline_transition_required": true,
+    "scope_reduction_allowed": false
+  },
+  "development_only": true,
+  "downstream_reverification_requirements": {
+    "required_order": [
+      "stage378",
+      "stage379",
+      "stage380",
+      "stage381"
+    ],
+    "stage378_required": true,
+    "stage379_required": true,
+    "stage380_required": true,
+    "stage381_required": true,
+    "stage381_required_platforms": [
+      "ubuntu",
+      "windows",
+      "macos"
+    ],
+    "stage381_same_canonical_result_sha256_required": true,
+    "stage381_same_decision_required": true,
+    "stage381_same_exit_code_required": true,
+    "stage381_same_stage380_result_sha256_required": true
+  },
+  "formal_acceptance": false,
+  "opentimestamps_requirements": {
+    "bitcoin_attestation_required": true,
+    "execution_status_required": "verified",
+    "existing_proof_reuse_required": true,
+    "new_proof_generation_allowed": false,
+    "pending_confirmation_allowed": false,
+    "target_hash_verified_required": true
+  },
+  "pending_decision": {
+    "decision": "policy_bound_final_acceptance_pending",
+    "formal_acceptance": false,
+    "pipeline_completed": false
+  },
+  "pipeline_completed": false,
+  "profile_name": "qsp-dual-timestamp-final-acceptance-v1",
+  "profile_status": "active-development",
+  "profile_version": "1.0.0",
+  "public_release_allowed": false,
+  "publication_boundary": {
+    "key_publication_allowed": false,
+    "private_core_publication_allowed": false,
+    "private_directory_publication_allowed": false,
+    "public_metadata_and_verification_results_allowed": true,
+    "raw_qkd_key_publication_allowed": false,
+    "raw_timestamp_binary_publication_allowed": false,
+    "secret_publication_allowed": false
+  },
+  "rfc3161_requirements": {
+    "certificate_chain_verified_required": true,
+    "execution_status_required": "verified",
+    "message_imprint_verified_required": true,
+    "signature_verified_required": true,
+    "target_hash_verified_required": true
+  },
+  "source_stage": 377,
+  "stage": 382,
+  "stage377_acceptance_requirements": {
+    "critical_failure_count": 0,
+    "decision": "dual_timestamp_final_acceptance_verified",
+    "effective_final_acceptance": true,
+    "verified_proof_count": 2
+  },
+  "stage378_requirements": {
+    "evidence_classification_required": true,
+    "evidence_level_required": true,
+    "forbidden_public_file_count_required": 0,
+    "private_material_content_detected_required": false,
+    "qkd_metadata_bound_required": true,
+    "raw_qkd_key_publication_detected_required": false,
+    "reverification_required": true,
+    "stage377_final_acceptance_verified_required": true,
+    "stage377_hash_valid_required": true
+  },
+  "success_decision": {
+    "decision": "policy_bound_upstream_finalization_verified",
+    "formal_acceptance": false,
+    "meaning": "Stage377 completion and downstream reverification are verified under this policy. This development profile does not independently issue production formal acceptance.",
+    "pipeline_completed": false
+  },
+  "target_binding_requirements": {
+    "hash_algorithm": "sha256",
+    "same_stage360_target_required": true,
+    "target_hash_must_be_present": true,
+    "target_hash_must_match_both_proofs": true
+  },
+  "timestamp_requirements": {
+    "failed_proof_allowed_for_final_acceptance": false,
+    "independent_timestamp_systems_required": true,
+    "opentimestamps_required": true,
+    "pending_proof_allowed_for_final_acceptance": false,
+    "required_verified_proof_count": 2,
+    "rfc3161_required": true
+  },
+  "verification_mode": "policy_bound_upstream_finalization_recovery"
+}
