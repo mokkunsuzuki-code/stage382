@@ -48,7 +48,8 @@ STAGE377_RELATIVE_PATH = Path(
 )
 
 STAGE378_RELATIVE_PATH = Path(
-    "docs/qkd/"
+    "docs/qkd/final/"
+    "run-33075729675/"
     "stage378_qkd_safety_metadata_binding_result.json"
 )
 
@@ -155,7 +156,7 @@ class Stage382FailClosedTests(unittest.TestCase):
             newline="\n",
         )
 
-    def test_current_finalized_state_requires_stage378_reverification(
+    def test_current_finalized_state_requires_downstream_reverification(
         self,
     ) -> None:
         exit_code, result = self.run_verifier()
@@ -163,11 +164,17 @@ class Stage382FailClosedTests(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertEqual(
             result.get("decision"),
-            "policy_bound_stage378_reverification_required",
+            (
+                "policy_bound_upstream_finalization_ready_"
+                "for_downstream_reverification"
+            ),
         )
         self.assertEqual(
             result.get("verification_status"),
-            "stage377_complete_stage378_pending",
+            (
+                "stage377_and_stage378_complete_"
+                "downstream_reverification_required"
+            ),
         )
         self.assertTrue(
             result.get(
@@ -181,7 +188,7 @@ class Stage382FailClosedTests(unittest.TestCase):
                 {},
             ).get("policy_activated")
         )
-        self.assertTrue(
+        self.assertFalse(
             result.get(
                 "policy_activation_state",
                 {},
@@ -189,13 +196,13 @@ class Stage382FailClosedTests(unittest.TestCase):
                 "stage378_reverification_required"
             )
         )
-        self.assertFalse(
+        self.assertTrue(
             result.get(
                 "policy_activation_state",
                 {},
             ).get("stage378_ready")
         )
-        self.assertFalse(
+        self.assertTrue(
             result.get(
                 "policy_activation_state",
                 {},
@@ -222,6 +229,86 @@ class Stage382FailClosedTests(unittest.TestCase):
             self.worktree / STAGE377_RELATIVE_PATH
         )
 
+        stage378_path = (
+            self.worktree / STAGE378_RELATIVE_PATH
+        )
+
+        stage377 = load_json(stage377_path)
+        stage378 = load_json(stage378_path)
+
+        stage377["verified_proof_count"] = 1
+        stage377["effective_final_acceptance"] = False
+        stage377["decision"] = (
+            "rfc3161_verified_opentimestamps_pending"
+        )
+
+        unsigned_stage377 = dict(stage377)
+        unsigned_stage377.pop("result_sha256", None)
+
+        stage377["result_sha256"] = hashlib.sha256(
+            json.dumps(
+                unsigned_stage377,
+                ensure_ascii=False,
+                sort_keys=True,
+                indent=2,
+            ).encode("utf-8")
+        ).hexdigest()
+
+        stage378["previous_hash"] = (
+            stage377["result_sha256"]
+        )
+        stage378["stage377_result_sha256"] = (
+            stage377["result_sha256"]
+        )
+        stage378["stage377_decision"] = (
+            stage377["decision"]
+        )
+        stage378["stage377_verified_proof_count"] = 1
+        stage378[
+            "stage377_final_acceptance_verified"
+        ] = False
+        stage378["qkd_metadata_bound"] = False
+        stage378["decision"] = (
+            "qkd_binding_pending_previous_stage"
+        )
+
+        write_json(stage377_path, stage377)
+        write_json(stage378_path, stage378)
+
+        exit_code, result = self.run_verifier()
+
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(
+            result.get("decision"),
+            "policy_bound_final_acceptance_pending",
+        )
+        self.assertEqual(
+            result.get("verification_status"),
+            "verified_pending_upstream",
+        )
+        self.assertFalse(
+            result.get(
+                "policy_activation_state",
+                {},
+            ).get("policy_activated")
+        )
+        self.assertFalse(
+            result.get("formal_acceptance")
+        )
+        self.assertFalse(
+            result.get("pipeline_completed")
+        )
+        self.assertFalse(
+            result.get("public_release_allowed")
+        )
+
+    def test_incomplete_stage377_with_final_stage378_fails_closed(
+        self,
+    ) -> None:
+        stage377_path = (
+            self.worktree / STAGE377_RELATIVE_PATH
+        )
+
         stage377 = load_json(stage377_path)
 
         stage377["verified_proof_count"] = 1
@@ -234,19 +321,14 @@ class Stage382FailClosedTests(unittest.TestCase):
 
         exit_code, result = self.run_verifier()
 
-        self.assertEqual(exit_code, 0)
+        self.assertEqual(exit_code, 2)
         self.assertEqual(
             result.get("decision"),
-            "policy_bound_final_acceptance_pending",
+            "fail_closed",
         )
-        self.assertFalse(
-            result.get(
-                "policy_activation_state",
-                {},
-            ).get("policy_activated")
-        )
-        self.assertFalse(
-            result.get("formal_acceptance")
+        self.assertIn(
+            "stage378_stage377_final_binding_matches",
+            result.get("critical_failures", []),
         )
 
     def test_policy_sha256_tampering_fails_closed(self) -> None:
@@ -375,7 +457,12 @@ class Stage382FailClosedTests(unittest.TestCase):
             self.worktree / STAGE377_RELATIVE_PATH
         )
 
+        stage378_path = (
+            self.worktree / STAGE378_RELATIVE_PATH
+        )
+
         stage377 = load_json(stage377_path)
+        stage378 = load_json(stage378_path)
 
         stage377["verified_proof_count"] = 2
         stage377["effective_final_acceptance"] = True
@@ -383,7 +470,16 @@ class Stage382FailClosedTests(unittest.TestCase):
             "dual_timestamp_final_acceptance_verified"
         )
 
+        stage378[
+            "stage377_final_acceptance_verified"
+        ] = False
+        stage378["qkd_metadata_bound"] = False
+        stage378["decision"] = (
+            "qkd_binding_pending_previous_stage"
+        )
+
         write_json(stage377_path, stage377)
+        write_json(stage378_path, stage378)
 
         exit_code, result = self.run_verifier()
 
@@ -522,6 +618,32 @@ class Stage382FailClosedTests(unittest.TestCase):
         )
         self.assertFalse(
             result.get("pipeline_completed")
+        )
+
+    def test_stage378_stage377_binding_mismatch_fails_closed(
+        self,
+    ) -> None:
+        stage378_path = (
+            self.worktree / STAGE378_RELATIVE_PATH
+        )
+
+        stage378 = load_json(stage378_path)
+
+        stage378["previous_hash"] = "0" * 64
+        stage378["stage377_result_sha256"] = "0" * 64
+
+        write_json(stage378_path, stage378)
+
+        exit_code, result = self.run_verifier()
+
+        self.assertEqual(exit_code, 2)
+        self.assertEqual(
+            result.get("decision"),
+            "fail_closed",
+        )
+        self.assertIn(
+            "stage378_stage377_final_binding_matches",
+            result.get("critical_failures", []),
         )
 
     def test_stage378_publication_boundary_failure_fails_closed(

@@ -71,29 +71,54 @@ effective_final_acceptance:
 true
 ```
 
-Therefore, the current Stage382 decision is:
+The independently audited Stage378 final run reports:
 
 ```text
-policy_bound_stage378_reverification_required
+run:
+33075729675
+
+decision:
+qkd_operational_evidence_pending
+
+stage377_final_acceptance_verified:
+true
+
+stage377_hash_valid:
+true
+
+stage377_verified_proof_count:
+2
+
+qkd_metadata_bound:
+true
+
+evidence_classification:
+metadata_only
+
+evidence_level:
+QKD-E1
 ```
 
-Current Stage382 status:
+Stage382 now reports:
 
 ```text
+decision:
+policy_bound_upstream_finalization_ready_for_downstream_reverification
+
 verification_status:
-stage377_complete_stage378_pending
+stage377_and_stage378_complete_downstream_reverification_required
 
 critical_failure_count:
 0
 
-policy_activated:
-true
-
 stage378_reverification_required:
-true
+false
 
 stage378_ready:
-false
+true
+
+downstream_reverification_required:
+true
 
 formal_acceptance:
 false
@@ -105,12 +130,15 @@ public_release_allowed:
 false
 ```
 
-This is the expected Fail-Closed transition state.
+Stage378 is complete for its declared `metadata_only` / `QKD-E1`
+verification scope.
 
-Stage382 confirms that Stage377 now satisfies the fixed dual-timestamp
-policy requirements. It does not automatically issue formal acceptance.
-Stage378 must be reverified against the finalized Stage377 evidence
-before downstream reverification can continue.
+`qkd_operational_evidence_pending` means that operational QKD evidence
+has not been claimed. It does not mean the Stage378 metadata binding
+failed.
+
+Stage379, Stage380, and Stage381 still require downstream
+reverification.
 
 ## Versioned Policy Profile
 
@@ -153,72 +181,86 @@ verified_proof_count == 2
 effective_final_acceptance == true
 ```
 
-Stage382 does not activate the policy when either condition is missing.
+After Stage377 completes, Stage382 requires the audited Stage378 final
+evidence to remain bound to that finalized Stage377 result before
+downstream reverification may proceed.
 
-After Stage377 completes, Stage382 does not automatically issue formal
-acceptance. It changes to a state requiring verified downstream
-reexecution.
-
-Current and expected transition:
+Current transition:
 
 ```text
 Stage377 complete
         |
         v
-policy_bound_stage378_reverification_required
+Stage378 final/run-33075729675 validated
         |
         v
-Stage378 reverification
+Stage377 -> Stage378 canonical binding verified
         |
         v
 policy_bound_upstream_finalization_ready_for_downstream_reverification
         |
         v
-Stage379 reverification
+Stage379 reverification required
         |
         v
-Stage380 reverification
+Stage380 reverification required
         |
         v
-Stage381 Ubuntu / Windows / macOS reverification
+Stage381 cross-platform reverification required
 ```
+
+No downstream stage is automatically upgraded.
 
 ## Fail-Closed Tests
 
-Stage382 includes tests for:
+Stage382 currently has 11 Fail-Closed tests covering:
 
-- the current pending Stage377 state
-- prevention of incomplete Stage377 acceptance
+- completed Stage377 and Stage378 allowing downstream reverification
+- completed Stage377 requiring Stage378
+- the current finalized upstream state
+- incomplete Stage377 not being upgraded
+- incomplete Stage377 combined with finalized Stage378 failing closed
+- missing required evidence files
 - policy SHA-256 tampering
-- missing required input files
+- Stage378 publication-boundary violations
+- Stage377-to-Stage378 binding mismatch
 - Stage380 package-integrity failure
 - Stage381 cross-platform reproducibility failure
-- completed Stage377 requiring downstream reverification
 
 The tests operate on temporary copies and do not modify the actual
 Stage377 through Stage381 records.
 
-Run the tests with:
+Run:
 
 ```bash
+PYTHONDONTWRITEBYTECODE=1 \
 python3 development/stage382/test_stage382_fail_closed.py
 ```
 
 ## Run the Stage382 Verifier
 
 ```bash
+PYTHONDONTWRITEBYTECODE=1 \
 python3 development/stage382/verify_stage382_upstream_finalization.py
 ```
 
-The current expected result is:
+Current expected result:
 
 ```text
-decision=policy_bound_final_acceptance_pending
-verification_status=verified_pending_upstream
-stage377_verified_proof_count=1
-stage377_effective_final_acceptance=false
+decision=policy_bound_upstream_finalization_ready_for_downstream_reverification
+verification_status=stage377_and_stage378_complete_downstream_reverification_required
+stage377_verified_proof_count=2
+stage377_effective_final_acceptance=true
 critical_failure_count=0
 ```
+
+Current embedded Stage382 result SHA-256:
+
+```text
+2785ea5f496dc3d882467ea727d5adf17b5276491d9b31a098fd697f5c9da8ac
+```
+
+The verifier remains deterministic for the current fixed input set.
 
 ## Public Verification Files
 

@@ -43,7 +43,8 @@ STAGE377_RESULT_PATH = Path(
 )
 
 STAGE378_RESULT_PATH = Path(
-    "docs/qkd/"
+    "docs/qkd/final/"
+    "run-33075729675/"
     "stage378_qkd_safety_metadata_binding_result.json"
 )
 
@@ -312,8 +313,49 @@ def main() -> int:
         )
 
 
+        stage377_declared_result_sha256 = (
+            stage377.get("result_sha256")
+        )
+
+        stage378_stage377_binding_matches = (
+            isinstance(
+                stage377_declared_result_sha256,
+                str,
+            )
+            and len(
+                stage377_declared_result_sha256
+            ) == 64
+            and stage378.get("previous_hash")
+            == stage377_declared_result_sha256
+            and stage378.get(
+                "stage377_result_sha256"
+            )
+            == stage377_declared_result_sha256
+            and stage378.get(
+                "stage377_decision"
+            )
+            == stage377.get("decision")
+            and stage378.get(
+                "stage377_verified_proof_count"
+            )
+            == stage377.get(
+                "verified_proof_count"
+            )
+        )
+
+        add_check(
+            checks,
+            name=(
+                "stage378_stage377_final_binding_matches"
+            ),
+            passed=stage378_stage377_binding_matches,
+            expected=True,
+            actual=stage378_stage377_binding_matches,
+        )
+
         stage378_ready = (
-            stage378.get("stage377_hash_valid") is True
+            stage378_stage377_binding_matches
+            and stage378.get("stage377_hash_valid") is True
             and stage378.get(
                 "stage377_final_acceptance_verified"
             ) is True

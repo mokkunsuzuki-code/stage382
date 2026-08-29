@@ -1,5 +1,5 @@
 {
-  "check_count": 29,
+  "check_count": 30,
   "checks": [
     {
       "actual": false,
@@ -75,7 +75,7 @@
       "actual": true,
       "critical": true,
       "expected": true,
-      "name": "required_file_present:docs/qkd/stage378_qkd_safety_metadata_binding_result.json",
+      "name": "required_file_present:docs/qkd/final/run-33075729675/stage378_qkd_safety_metadata_binding_result.json",
       "passed": true
     },
     {
@@ -121,11 +121,11 @@
       "passed": true
     },
     {
-      "actual": false,
+      "actual": true,
       "critical": false,
       "expected": true,
       "name": "stage378_qkd_metadata_bound",
-      "passed": false
+      "passed": true
     },
     {
       "actual": false,
@@ -135,11 +135,18 @@
       "passed": true
     },
     {
-      "actual": false,
+      "actual": true,
       "critical": false,
       "expected": true,
       "name": "stage378_stage377_final_acceptance_verified",
-      "passed": false
+      "passed": true
+    },
+    {
+      "actual": true,
+      "critical": true,
+      "expected": true,
+      "name": "stage378_stage377_final_binding_matches",
+      "passed": true
     },
     {
       "actual": true,
@@ -207,15 +214,15 @@
   ],
   "critical_failure_count": 0,
   "critical_failures": [],
-  "decision": "policy_bound_stage378_reverification_required",
+  "decision": "policy_bound_upstream_finalization_ready_for_downstream_reverification",
   "development_only": true,
   "downstream_observation": {
-    "stage378_decision": "qkd_binding_pending_previous_stage",
-    "stage378_qkd_metadata_bound": false,
-    "stage378_ready": false,
-    "stage378_result_path": "docs/qkd/stage378_qkd_safety_metadata_binding_result.json",
-    "stage378_result_sha256": "deb30c486d3569701ef87cdd0b08bb65bb136808b6ef88d5d3e61c181d03dfbc",
-    "stage378_stage377_final_acceptance_verified": false,
+    "stage378_decision": "qkd_operational_evidence_pending",
+    "stage378_qkd_metadata_bound": true,
+    "stage378_ready": true,
+    "stage378_result_path": "docs/qkd/final/run-33075729675/stage378_qkd_safety_metadata_binding_result.json",
+    "stage378_result_sha256": "14103bba01741d8d0eb4f0a8a04276bf67fe6f46c6a81b0b22646a11b573e8d1",
+    "stage378_stage377_final_acceptance_verified": true,
     "stage378_stage377_hash_valid": true,
     "stage379_formal_acceptance": false,
     "stage379_pipeline_completed": false,
@@ -234,12 +241,12 @@
   "pipeline_completed": false,
   "policy_activation_state": {
     "automatic_acceptance_upgrade_performed": false,
-    "downstream_reverification_required": false,
+    "downstream_reverification_required": true,
     "existing_stage377_evidence_reused": true,
     "new_timestamp_proof_generated": false,
     "policy_activated": true,
-    "stage378_ready": false,
-    "stage378_reverification_required": true
+    "stage378_ready": true,
+    "stage378_reverification_required": false
   },
   "policy_profile": {
     "name": "qsp-dual-timestamp-final-acceptance-v1",
@@ -249,7 +256,7 @@
     "version": "1.0.0"
   },
   "public_release_allowed": false,
-  "result_sha256": "69d1c53d68bf6c9cf1e04e1e2ce1e9280e8886946e4dcad192eea320a6c9a714",
+  "result_sha256": "2785ea5f496dc3d882467ea727d5adf17b5276491d9b31a098fd697f5c9da8ac",
   "source_stage": 381,
   "stage": 382,
   "statement": "Stage382 observes Stage377 completion under a versioned policy. It does not fabricate upstream completion and does not automatically upgrade formal acceptance.",
@@ -262,5 +269,5 @@
     "stage377_verified_proof_count": 2
   },
   "verification_mode": "upstream_finalization_recovery_and_policy_activation",
-  "verification_status": "stage377_complete_stage378_pending"
+  "verification_status": "stage377_and_stage378_complete_downstream_reverification_required"
 }

@@ -1,18 +1,18 @@
 {
   "activation_state": {
     "automatic_acceptance_upgrade_performed": false,
-    "downstream_reverification_required": false,
+    "downstream_reverification_required": true,
     "existing_stage377_evidence_reused": true,
     "new_timestamp_proof_generated": false,
     "policy_activated": true,
-    "stage378_ready": false,
-    "stage378_reverification_required": true
+    "stage378_ready": true,
+    "stage378_reverification_required": false
   },
   "development_only": true,
   "fail_closed": true,
   "formal_acceptance": false,
   "manifest_name": "Stage382 Policy Activation Manifest",
-  "manifest_sha256": "6c34fb003ba4391c04471d104d403e51b6715e665760c373420136acfd45e9b2",
+  "manifest_sha256": "2f46520cbc67d460263d6683f0d73cbdc66f15263b901a283ae2e312caca129c",
   "manifest_version": "1.1.0-development",
   "pipeline_completed": false,
   "policy_profile": {
@@ -36,11 +36,11 @@
   "stage": 382,
   "stage382_result": {
     "critical_failure_count": 0,
-    "decision": "policy_bound_stage378_reverification_required",
-    "embedded_result_sha256": "69d1c53d68bf6c9cf1e04e1e2ce1e9280e8886946e4dcad192eea320a6c9a714",
-    "file_sha256": "0874a66d32ef6220467fd97dec889c88a3f208ce0ed126e1caebf1866dc2c949",
+    "decision": "policy_bound_upstream_finalization_ready_for_downstream_reverification",
+    "embedded_result_sha256": "2785ea5f496dc3d882467ea727d5adf17b5276491d9b31a098fd697f5c9da8ac",
+    "file_sha256": "d6523311b9d5f4ab5a374668738ea0548751b19a0ebb8beb67b6074032e39c9d",
     "path": "development/stage382/stage382_upstream_finalization_result.json",
-    "verification_status": "stage377_complete_stage378_pending"
+    "verification_status": "stage377_and_stage378_complete_downstream_reverification_required"
   },
   "upstream_bindings": {
     "stage377": {
@@ -52,16 +52,16 @@
       "verified_proof_count": 2
     },
     "stage378": {
-      "decision": "qkd_binding_pending_previous_stage",
-      "embedded_result_sha256": "5c67a4160b06efb06e7608acfcf7e46d27895adeb3d69cd8a7fe216ba95ef86e",
+      "decision": "qkd_operational_evidence_pending",
+      "embedded_result_sha256": "325dcacb4357015d010b68006735b010c63648970440511385d7e89eeff9cbbc",
       "evidence_classification": "metadata_only",
       "evidence_level": "QKD-E1",
-      "file_sha256": "deb30c486d3569701ef87cdd0b08bb65bb136808b6ef88d5d3e61c181d03dfbc",
-      "path": "docs/qkd/stage378_qkd_safety_metadata_binding_result.json",
+      "file_sha256": "14103bba01741d8d0eb4f0a8a04276bf67fe6f46c6a81b0b22646a11b573e8d1",
+      "path": "docs/qkd/final/run-33075729675/stage378_qkd_safety_metadata_binding_result.json",
       "private_material_content_detected": false,
-      "qkd_metadata_bound": false,
+      "qkd_metadata_bound": true,
       "raw_qkd_key_publication_detected": false,
-      "stage377_final_acceptance_verified": false,
+      "stage377_final_acceptance_verified": true,
       "stage377_hash_valid": true
     },
     "stage379": {

@@ -13,6 +13,7 @@ on:
       - "development/stage380/**"
       - "docs/verification/stage381/**"
       - "docs/timestamp-finalization/final/run-33075714532/stage377_dual_timestamp_finalization_result.json"
+      - "docs/qkd/final/run-33075729675/stage378_qkd_safety_metadata_binding_result.json"
 
 permissions:
   contents: read
@@ -62,6 +63,10 @@ jobs:
 
           python -m json.tool \
             docs/timestamp-finalization/final/run-33075714532/stage377_dual_timestamp_finalization_result.json \
+            > /dev/null
+
+          python -m json.tool \
+            docs/qkd/final/run-33075729675/stage378_qkd_safety_metadata_binding_result.json \
             > /dev/null
 
           python -m json.tool \

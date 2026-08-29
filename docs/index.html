@@ -46,20 +46,24 @@
   </h2>
 
   <p>
-    Stage381までのクロスプラットフォーム決定論的再検証を保持したまま、
-    Stage377の二重タイムスタンプ最終承認条件を、
-    バージョン固定されたポリシープロファイルへ結合します。
+    Stage377の二重タイムスタンプ最終承認と、
+    監査済みStage378 final runのQKD安全メタデータ結合を、
+    固定ポリシーの下で検証します。
   </p>
 
   <p>
-    Stage377が完了した後は、Stage378、Stage379、Stage380、
-    Stage381の順序で再検証することを要求します。
-    未完了の上流結果を自動的に完了扱いすることはありません。
+    Stage378の再検証は完了しています。
+    現在はStage379以降のdownstream再検証が必要です。
   </p>
 
   <p>
     <strong>Current decision:</strong>
-    <code>policy_bound_stage378_reverification_required</code>
+    <code>policy_bound_upstream_finalization_ready_for_downstream_reverification</code>
+  </p>
+
+  <p>
+    <strong>Verification status:</strong>
+    <code>stage377_and_stage378_complete_downstream_reverification_required</code>
   </p>
 
   <p>
@@ -71,11 +75,37 @@
   </p>
 
   <p>
+    <strong>Stage378 final run:</strong>
+    <code>33075729675</code>
+    /
+    <strong>Stage378 ready:</strong>
+    <code>true</code>
+  </p>
+
+  <p>
+    <strong>Stage378 evidence:</strong>
+    <code>metadata_only / QKD-E1</code>
+    /
+    <strong>QKD metadata bound:</strong>
+    <code>true</code>
+  </p>
+
+  <p>
     <strong>Stage378 reverification required:</strong>
+    <code>false</code>
+    /
+    <strong>Downstream reverification required:</strong>
     <code>true</code>
     /
     <strong>Critical failures:</strong>
     <code>0</code>
+  </p>
+
+  <p>
+    <strong>Formal boundary:</strong>
+    <code>formal_acceptance=false</code>,
+    <code>pipeline_completed=false</code>,
+    <code>public_release_allowed=false</code>
   </p>
 
   <p>
@@ -84,16 +114,13 @@
     ·
     <a href="./verification/stage382/stage382_policy_activation_manifest.json">Policy Activation Manifest</a>
     ·
-    <a href="./verification/stage382/qsp-dual-timestamp-final-acceptance-v1.json">Policy Profile</a>
+    <a href="./qkd/final/run-33075729675/stage378_qkd_safety_metadata_binding_result.json">Stage378 Final Result</a>
     ·
     <a href="./timestamp-finalization/final/run-33075714532/stage377_dual_timestamp_finalization_result.json">Stage377 Final Result</a>
-    ·
-    <a href="./timestamp-finalization/final/run-33075714532/stage377_opentimestamps_verification_receipt.json">OpenTimestamps Receipt</a>
-    ·
-    <a href="./timestamp-finalization/final/run-33075714532/stage377_rfc3161_verification_receipt.json">RFC3161 Receipt</a>
   </p>
 </section>
 <!-- STAGE382_CURRENT_PAGE_HEADER_END -->
+
 
 <header>
   <h1>Stage376</h1>
@@ -2730,28 +2757,25 @@ Verified / Pending / Block</pre>
   <h3>Current Meaning</h3>
 
   <p>
-    Stage377 currently proves that the production dual-timestamp
-    workflows, fixed hash bindings, Fail-Closed finalization
-    engine, metadata receipt structures, and publication boundary
-    have been prepared.
+    Historical Stage377 pending records remain preserved and are not
+    rewritten.
   </p>
 
   <p>
-    The current initial result remains
-    <code>timestamp_finalization_pending</code>.
+    A later finalized Stage377 run establishes
+    <code>dual_timestamp_final_acceptance_verified</code>,
+    <code>verified_proof_count=2</code>, and
+    <code>effective_final_acceptance=true</code>.
   </p>
 
   <p>
-    Stage377 therefore does not yet claim successful RFC3161
-    verification, successful OpenTimestamps verification,
-    dual-timestamp final acceptance, or maximum timestamp
-    assurance.
+    RFC3161 and OpenTimestamps independently verify the same fixed
+    timestamp target.
   </p>
 
   <p>
-    After both independent systems verify the same fixed Stage360
-    target, Stage377 can establish the later superseding effective
-    final-acceptance state.
+    The finalized evidence is published under
+    <code>timestamp-finalization/final/run-33075714532/</code>.
   </p>
 
   <p>
@@ -2759,59 +2783,85 @@ Verified / Pending / Block</pre>
   </p>
 
 </section>
-<!-- STAGE377_APPEND_ONLY_END -->\n\n<!-- STAGE378_APPEND_ONLY_START -->
+<!-- STAGE377_APPEND_ONLY_END -->
+
+<!-- STAGE378_APPEND_ONLY_START -->
 <section id="stage378">
-  <h2>Stage378: QKD Safety Metadata Binding &amp; Evidence Classification Gate</h2>
-  <p>Stage378 extends Stage377 by binding public QKD safety metadata to the validated Stage377 result hash.</p>
-  <p>It classifies evidence as metadata only, QKD simulator, controlled testbed, or physical QKD system, while verifying that no raw or derived QKD secret material is published.</p>
-  <h3>Stage377 to Stage378</h3>
-  <p>Stage377 dual-timestamp finalization result<br>↓<br>Stage377 result SHA256 validation<br>↓<br><code>previous_hash</code> binding<br>↓<br>QKD safety metadata validation<br>↓<br>evidence classification<br>↓<br>QKD evidence-level assignment<br>↓<br>Stage378 decision</p>
-  <h3>Current State</h3>
+  <h2>
+    Stage378: QKD Safety Metadata Binding
+    &amp; Evidence Classification Gate
+  </h2>
+
+  <p>
+    Stage378 binds public QKD safety metadata to the validated
+    Stage377 canonical result hash.
+  </p>
+
+  <h3>Current Final State</h3>
+
   <ul>
-    <li>Stage377 decision: <code>timestamp_finalization_pending</code></li>
-    <li>Stage377 verified proof count: <code>0</code></li>
-    <li>Stage378 decision: <code>qkd_binding_pending_previous_stage</code></li>
+    <li>Final run: <code>33075729675</code></li>
+    <li>Stage377 decision: <code>dual_timestamp_final_acceptance_verified</code></li>
+    <li>Stage377 verified proof count: <code>2</code></li>
+    <li>Stage377 final acceptance verified: <code>true</code></li>
+    <li>Stage377 hash valid: <code>true</code></li>
+    <li>Stage378 decision: <code>qkd_operational_evidence_pending</code></li>
     <li>Evidence classification: <code>metadata_only</code></li>
     <li>Evidence level: <code>QKD-E1</code></li>
-    <li>QKD metadata bound: <code>false</code></li>
+    <li>QKD metadata bound: <code>true</code></li>
+    <li>Raw QKD key publication detected: <code>false</code></li>
+    <li>Private material content detected: <code>false</code></li>
   </ul>
-  <p>This is the expected Fail-Closed state. Stage378 does not convert an incomplete Stage377 result into a completed QKD metadata binding.</p>
-  <h3>Evidence Classifications</h3>
-  <ul>
-    <li><code>metadata_only</code>: public safety metadata only</li>
-    <li><code>qkd_simulator</code>: QKD simulator evidence</li>
-    <li><code>controlled_testbed</code>: controlled QKD test-environment evidence</li>
-    <li><code>physical_qkd_system</code>: identified physical QKD-system evidence</li>
-  </ul>
-  <h3>QKD Evidence Levels</h3>
-  <ul>
-    <li><code>QKD-E0</code>: invalid, insufficient, inconsistent, or unsafe evidence</li>
-    <li><code>QKD-E1</code>: safe metadata-only evidence</li>
-    <li><code>QKD-E2</code>: QKD simulator evidence</li>
-    <li><code>QKD-E3</code>: controlled QKD testbed evidence</li>
-    <li><code>QKD-E4</code>: physical QKD-system evidence satisfying required checks</li>
-  </ul>
-  <h3>QBER Metadata</h3>
-  <p>Stage378 does not hard-code one universal QBER threshold. It validates <code>observed_qber</code>, <code>declared_qber_limit</code>, <code>qber_within_declared_limit</code>, and <code>limit_source</code>.</p>
+
+  <p>
+    <code>qkd_operational_evidence_pending</code> is not a metadata
+    binding failure.
+  </p>
+
+  <p>
+    The currently asserted evidence is intentionally limited to
+    <code>metadata_only</code> / <code>QKD-E1</code>.
+    No simulator, controlled testbed, or physical QKD operational
+    evidence is claimed.
+  </p>
+
+  <h3>Historical Root Result</h3>
+
+  <p>
+    The older root Stage378 result remains preserved as historical
+    evidence and records the earlier
+    <code>qkd_binding_pending_previous_stage</code> state.
+  </p>
+
+  <p>
+    Stage382 does not use that historical root result as its current
+    Stage378 readiness input.
+  </p>
+
   <h3>Public Stage378 Evidence</h3>
+
   <ul>
-    <li><a href="./qkd/stage378_qkd_safety_metadata_input.json">Stage378 QKD Safety Metadata Input JSON</a></li>
-    <li><a href="./qkd/stage378_evidence_classification.json">Stage378 Evidence Classification JSON</a></li>
-    <li><a href="./qkd/stage378_qkd_safety_metadata_binding_result.json">Stage378 QKD Safety Metadata Binding Result JSON</a></li>
-    <li><a href="./qkd/stage378_qkd_safety_metadata_binding_summary.txt">Stage378 QKD Safety Metadata Binding Summary</a></li>
+    <li><a href="./qkd/final/run-33075729675/stage378_qkd_safety_metadata_input.json">Final QKD Safety Metadata Input</a></li>
+    <li><a href="./qkd/final/run-33075729675/stage378_evidence_classification.json">Final Evidence Classification</a></li>
+    <li><a href="./qkd/final/run-33075729675/stage378_qkd_safety_metadata_binding_result.json">Stage378 Final Result</a></li>
+    <li><a href="./qkd/final/run-33075729675/stage378_qkd_safety_metadata_binding_summary.txt">Final QKD Safety Metadata Binding Summary</a></li>
+    <li><a href="./qkd/stage378_qkd_safety_metadata_binding_result.json">Historical Root Stage378 Result</a></li>
   </ul>
+
   <h3>Publication Boundary</h3>
+
   <ul>
     <li>No raw QKD key material is published.</li>
-    <li>No sifted, reconciled, or final QKD secret material is published.</li>
-    <li>No private key, device credential, GitHub token, or OIDC token is published.</li>
-    <li>No raw RFC3161 or OpenTimestamps proof binary is published.</li>
-    <li>Only public metadata and verification results are published.</li>
+    <li>No derived QKD secret material is published.</li>
+    <li>No private key or credential is published.</li>
+    <li>No raw timestamp proof binary is published.</li>
+    <li>Only reviewed public metadata and verification results are published.</li>
   </ul>
-  <p>Stage378 does not modify or overwrite Stage377.</p>
+
   <p><strong>License:</strong> MIT License</p>
 </section>
 <!-- STAGE378_APPEND_ONLY_END -->
+
 
 <!-- STAGE379_APPEND_ONLY_START -->
 <section class="card" id="stage379">

@@ -58,31 +58,53 @@ Stage377 verified proof count:
 Stage377 effective final acceptance:
 true
 
-Stage378 ready:
-false
+Stage378 final run:
+33075729675
 
-Stage378 reverification required:
+Stage378 decision:
+qkd_operational_evidence_pending
+
+Stage378 evidence classification:
+metadata_only
+
+Stage378 evidence level:
+QKD-E1
+
+Stage378 QKD metadata bound:
 true
 
+Stage378 ready:
+true
+
+Stage378 reverification required:
+false
+
 Stage382 decision:
-policy_bound_stage378_reverification_required
+policy_bound_upstream_finalization_ready_for_downstream_reverification
 
 Stage382 verification status:
-stage377_complete_stage378_pending
+stage377_and_stage378_complete_downstream_reverification_required
+
+Downstream reverification required:
+true
 
 Critical failure count:
 0
-```
 
-This is the intended Fail-Closed transition state after Stage377 completion.
+Stage378 final evidence has been reverified and persisted.
 
-The Stage382 policy is activated, but Stage378 must now be reverified
-against the finalized Stage377 evidence before downstream reverification
-can proceed.
+qkd_operational_evidence_pending does not mean the Stage378 metadata
+binding failed. The current QKD evidence scope is
+metadata_only / QKD-E1.
 
-Stage382 does not generate a replacement OpenTimestamps proof and does
-not weaken the requirement for two independently verified timestamp
-proofs.
+No simulator, controlled testbed, or physical QKD-system operational
+evidence is claimed.
+
+Stage379, Stage380, and Stage381 still require downstream
+reverification.
+
+Stage382 does not automatically issue formal acceptance, mark the
+pipeline completed, or allow public release.
 
 ## Versioned Policy Profile
 
