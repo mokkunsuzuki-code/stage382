@@ -42,7 +42,8 @@ POLICY_SHA256_RELATIVE_PATH = Path(
 )
 
 STAGE377_RELATIVE_PATH = Path(
-    "docs/timestamp-finalization/"
+    "docs/timestamp-finalization/final/"
+    "run-33075714532/"
     "stage377_dual_timestamp_finalization_result.json"
 )
 
@@ -154,17 +155,53 @@ class Stage382FailClosedTests(unittest.TestCase):
             newline="\n",
         )
 
-    def test_current_pending_state_is_verified_pending(self) -> None:
+    def test_current_finalized_state_requires_stage378_reverification(
+        self,
+    ) -> None:
         exit_code, result = self.run_verifier()
 
         self.assertEqual(exit_code, 0)
         self.assertEqual(
             result.get("decision"),
-            "policy_bound_final_acceptance_pending",
+            "policy_bound_stage378_reverification_required",
         )
         self.assertEqual(
             result.get("verification_status"),
-            "verified_pending_upstream",
+            "stage377_complete_stage378_pending",
+        )
+        self.assertTrue(
+            result.get(
+                "upstream_state",
+                {},
+            ).get("stage377_complete")
+        )
+        self.assertTrue(
+            result.get(
+                "policy_activation_state",
+                {},
+            ).get("policy_activated")
+        )
+        self.assertTrue(
+            result.get(
+                "policy_activation_state",
+                {},
+            ).get(
+                "stage378_reverification_required"
+            )
+        )
+        self.assertFalse(
+            result.get(
+                "policy_activation_state",
+                {},
+            ).get("stage378_ready")
+        )
+        self.assertFalse(
+            result.get(
+                "policy_activation_state",
+                {},
+            ).get(
+                "downstream_reverification_required"
+            )
         )
         self.assertFalse(
             result.get("formal_acceptance")
@@ -173,10 +210,7 @@ class Stage382FailClosedTests(unittest.TestCase):
             result.get("pipeline_completed")
         )
         self.assertFalse(
-            result.get(
-                "upstream_state",
-                {},
-            ).get("stage377_complete")
+            result.get("public_release_allowed")
         )
         self.assertEqual(
             result.get("critical_failure_count"),

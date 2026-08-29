@@ -1,0 +1,69 @@
+{
+  "engine": "production_rfc3161_timestamp_verification",
+  "execution_status": "verified",
+  "generated_at": "2026-08-27T13:12:04.766989+00:00",
+  "github_actions": {
+    "commit_sha": "6e7c13b5142ccceef9b27773d9f6079919dce035",
+    "ref": "refs/heads/main",
+    "repository": "mokkunsuzuki-code/stage377",
+    "run_attempt": "1",
+    "run_id": "33075582105",
+    "workflow": "Stage377 Production RFC3161 Verification"
+  },
+  "previous_hash": "32ff58a1f4d5837518226eee70b32833a8147617df3142ff2f641eca3f116138",
+  "publication_boundary": {
+    "certificate_bundle_published": false,
+    "private_key_used": false,
+    "public_metadata_receipt_only": true,
+    "raw_token_published": false,
+    "raw_tsq_published": false,
+    "raw_tsr_published": false
+  },
+  "rfc3161_verified": true,
+  "source_stage": 376,
+  "stage": 377,
+  "timestamp_authority": {
+    "http_status": 200,
+    "provider": "DigiCert",
+    "url": "http://timestamp.digicert.com"
+  },
+  "timestamp_request": {
+    "certificate_requested": true,
+    "digest_algorithm": "sha256",
+    "raw_request_published": false,
+    "request_sha256": "deb38e8ed0ef70d61d93dccecf49d2175a4716d399410dd99346735394c2e93b"
+  },
+  "timestamp_response": {
+    "generation_time": "Aug 27 13:12:04 2026 GMT",
+    "policy_oid": "2.16.840.1.114412.7.1",
+    "raw_response_published": false,
+    "raw_token_published": false,
+    "response_sha256": "630e937917dca812dd17e3ac33d71b0af5c5c900bdfdd5b39c5e2043c1b444b7",
+    "response_status": "Granted.",
+    "serial_number": "0xDF48C12AC32D5E42E7DA2B353EC7F23B",
+    "timestamp_token_sha256": "759f471043cc75e88194bfdd3b7b02525f693fa3797828c5e8d960525815d966"
+  },
+  "timestamp_target": {
+    "digest_matches_stage360": true,
+    "path": "docs/timestamp-evidence/stage376_stage360_timestamp_target.json",
+    "sha256": "052c8f0283110e405443d56f2396c52a8486e7a70a489f831af107dad73ab1b5",
+    "stage360_target_sha256": "052c8f0283110e405443d56f2396c52a8486e7a70a489f831af107dad73ab1b5"
+  },
+  "tsa_signer_certificate": {
+    "issuer": "C = US, O = \"DigiCert, Inc.\", CN = DigiCert Trusted G4 TimeStamping RSA4096 SHA256 2025 CA1",
+    "not_after": "Sep  3 23:59:59 2036 GMT",
+    "not_before": "Jun  4 00:00:00 2025 GMT",
+    "serial": "0A80EF184B8DF10582D1C476A7957468",
+    "sha256_fingerprint": "4A:A0:3F:A2:2C:D7:5C:84:C5:5C:93:8F:82:8E:67:6B:9C:AE:CA:B3:3F:E3:6D:26:9A:A3:34:F1:46:11:0A:33",
+    "subject": "C = US, O = \"DigiCert, Inc.\", CN = DigiCert SHA256 RSA4096 Timestamp Responder 2025 1"
+  },
+  "verification": {
+    "certificate_chain_valid": true,
+    "openssl_ts_verify": true,
+    "openssl_version": "OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)",
+    "target_message_imprint_match": true,
+    "tsa_signature_valid": true,
+    "verification_output_sha256": "170679e5a7e0ccc9263c14d92663e898c2221f5df1a94d1fe59c46199ef74250"
+  },
+  "verification_exit_code": 0
+}

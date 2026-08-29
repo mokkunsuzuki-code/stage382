@@ -1,0 +1,52 @@
+{
+  "continuation": {
+    "source_receipt_sha256": "f444cc8a193bba37fe42a1440b1c726fcd155a8ffa2f608952295c862dedac2c",
+    "source_run_id": "32978768246",
+    "upgrade_exit_code": 0,
+    "upgrade_output_sha256": "d9ab76152b464b2463c5fb759479219b02fa12f1f72886a8c5b8317b13dc7fe0"
+  },
+  "engine": "production_opentimestamps_continuation_verification",
+  "execution_status": "verified",
+  "generated_at": "2026-08-27T13:07:18.629148+00:00",
+  "github_actions": {
+    "commit_sha": "6e7c13b5142ccceef9b27773d9f6079919dce035",
+    "ref": "refs/heads/main",
+    "repository": "mokkunsuzuki-code/stage377",
+    "run_attempt": "1",
+    "run_id": "33059983400",
+    "workflow": "Stage377 OpenTimestamps Continuation Verification"
+  },
+  "note": "A pending status is retained until the same OpenTimestamps proof verifies against a confirmed Bitcoin anchor.",
+  "opentimestamps_verified": true,
+  "previous_hash": "32ff58a1f4d5837518226eee70b32833a8147617df3142ff2f641eca3f116138",
+  "proof": {
+    "continuation_preserved": true,
+    "proof_sha256": "1845af837edad9d6e0c9e82faf5a21136fa9b635b9411b3625811da5e06a4095",
+    "raw_proof_published": false,
+    "source_proof_sha256": "1845af837edad9d6e0c9e82faf5a21136fa9b635b9411b3625811da5e06a4095"
+  },
+  "publication_boundary": {
+    "encrypted_continuation_only": true,
+    "private_key_used": false,
+    "public_metadata_receipt_only": true,
+    "raw_ots_published": false
+  },
+  "source_stage": 376,
+  "stage": 377,
+  "timestamp_target": {
+    "digest_matches_stage360": true,
+    "path": "docs/timestamp-evidence/stage376_stage360_timestamp_target.json",
+    "sha256": "052c8f0283110e405443d56f2396c52a8486e7a70a489f831af107dad73ab1b5",
+    "stage360_target_sha256": "052c8f0283110e405443d56f2396c52a8486e7a70a489f831af107dad73ab1b5"
+  },
+  "verification": {
+    "client_version": "v0.7.2",
+    "confirmed_anchor_reference": "959107",
+    "confirmed_anchor_type": "bitcoin",
+    "confirmed_public_anchor": true,
+    "target_hash_matches": true,
+    "verification_output_sha256": "6508d62b320a97547a9ee3467b02800e43bd91129ac0bb3965f8d21168e732d1",
+    "verified_time": "2026-07-22 JST"
+  },
+  "verification_exit_code": 0
+}

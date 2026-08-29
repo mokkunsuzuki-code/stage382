@@ -37,7 +37,8 @@ POLICY_SHA256_PATH = Path(
 )
 
 STAGE377_RESULT_PATH = Path(
-    "docs/timestamp-finalization/"
+    "docs/timestamp-finalization/final/"
+    "run-33075714532/"
     "stage377_dual_timestamp_finalization_result.json"
 )
 
@@ -280,7 +281,13 @@ def main() -> int:
         stage377_decision = stage377.get("decision")
 
         stage377_complete = (
-            stage377_verified_proof_count == 2
+            stage377_decision
+            == "dual_timestamp_final_acceptance_verified"
+            and stage377.get("rfc3161_verified") is True
+            and stage377.get("opentimestamps_verified") is True
+            and stage377.get("timestamp_verified") is True
+            and stage377_verified_proof_count == 2
+            and stage377.get("required_verified_proof_count") == 2
             and stage377_effective_final_acceptance is True
         )
 

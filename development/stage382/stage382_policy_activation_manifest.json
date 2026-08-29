@@ -4,15 +4,15 @@
     "downstream_reverification_required": false,
     "existing_stage377_evidence_reused": true,
     "new_timestamp_proof_generated": false,
-    "policy_activated": false,
+    "policy_activated": true,
     "stage378_ready": false,
-    "stage378_reverification_required": false
+    "stage378_reverification_required": true
   },
   "development_only": true,
   "fail_closed": true,
   "formal_acceptance": false,
   "manifest_name": "Stage382 Policy Activation Manifest",
-  "manifest_sha256": "5f77a568edd697673b36adc9fc8b0af484fbb1412c9a2970de56038a3267ab90",
+  "manifest_sha256": "6c34fb003ba4391c04471d104d403e51b6715e665760c373420136acfd45e9b2",
   "manifest_version": "1.1.0-development",
   "pipeline_completed": false,
   "policy_profile": {
@@ -36,20 +36,20 @@
   "stage": 382,
   "stage382_result": {
     "critical_failure_count": 0,
-    "decision": "policy_bound_final_acceptance_pending",
-    "embedded_result_sha256": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
-    "file_sha256": "36b316b900ddcd304c48cad3a2d4b9db20b791aff418cd16f58c49262fbda5d6",
+    "decision": "policy_bound_stage378_reverification_required",
+    "embedded_result_sha256": "69d1c53d68bf6c9cf1e04e1e2ce1e9280e8886946e4dcad192eea320a6c9a714",
+    "file_sha256": "0874a66d32ef6220467fd97dec889c88a3f208ce0ed126e1caebf1866dc2c949",
     "path": "development/stage382/stage382_upstream_finalization_result.json",
-    "verification_status": "verified_pending_upstream"
+    "verification_status": "stage377_complete_stage378_pending"
   },
   "upstream_bindings": {
     "stage377": {
-      "decision": "rfc3161_verified_opentimestamps_pending",
-      "effective_final_acceptance": false,
-      "embedded_result_sha256": "03135b9fe51b055c356179fdb927ad45317393f94b01b27250c1dd06312d098f",
-      "file_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
-      "path": "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
-      "verified_proof_count": 1
+      "decision": "dual_timestamp_final_acceptance_verified",
+      "effective_final_acceptance": true,
+      "embedded_result_sha256": "2ba9bfa75ce1ab0dbbd5b44f02581d85d8d355608abc66b8163f12845810b422",
+      "file_sha256": "372d3c40f5b6f84ab58913e40f8d1f232013516303c0bd79330e9041f1a9b6b9",
+      "path": "docs/timestamp-finalization/final/run-33075714532/stage377_dual_timestamp_finalization_result.json",
+      "verified_proof_count": 2
     },
     "stage378": {
       "decision": "qkd_binding_pending_previous_stage",

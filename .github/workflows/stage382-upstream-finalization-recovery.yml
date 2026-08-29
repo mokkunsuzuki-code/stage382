@@ -12,7 +12,7 @@ on:
       - "development/stage379/**"
       - "development/stage380/**"
       - "docs/verification/stage381/**"
-      - "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
+      - "docs/timestamp-finalization/final/run-33075714532/stage377_dual_timestamp_finalization_result.json"
 
 permissions:
   contents: read
@@ -61,7 +61,7 @@ jobs:
             > /dev/null
 
           python -m json.tool \
-            docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json \
+            docs/timestamp-finalization/final/run-33075714532/stage377_dual_timestamp_finalization_result.json \
             > /dev/null
 
           python -m json.tool \

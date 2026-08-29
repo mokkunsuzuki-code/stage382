@@ -82,7 +82,7 @@
       "actual": true,
       "critical": true,
       "expected": true,
-      "name": "required_file_present:docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
+      "name": "required_file_present:docs/timestamp-finalization/final/run-33075714532/stage377_dual_timestamp_finalization_result.json",
       "passed": true
     },
     {
@@ -93,18 +93,18 @@
       "passed": true
     },
     {
-      "actual": false,
+      "actual": true,
       "critical": false,
       "expected": true,
       "name": "stage377_effective_final_acceptance_complete",
-      "passed": false
+      "passed": true
     },
     {
-      "actual": 1,
+      "actual": 2,
       "critical": false,
       "expected": 2,
       "name": "stage377_verified_proof_count_complete",
-      "passed": false
+      "passed": true
     },
     {
       "actual": 0,
@@ -207,7 +207,7 @@
   ],
   "critical_failure_count": 0,
   "critical_failures": [],
-  "decision": "policy_bound_final_acceptance_pending",
+  "decision": "policy_bound_stage378_reverification_required",
   "development_only": true,
   "downstream_observation": {
     "stage378_decision": "qkd_binding_pending_previous_stage",
@@ -237,9 +237,9 @@
     "downstream_reverification_required": false,
     "existing_stage377_evidence_reused": true,
     "new_timestamp_proof_generated": false,
-    "policy_activated": false,
+    "policy_activated": true,
     "stage378_ready": false,
-    "stage378_reverification_required": false
+    "stage378_reverification_required": true
   },
   "policy_profile": {
     "name": "qsp-dual-timestamp-final-acceptance-v1",
@@ -249,18 +249,18 @@
     "version": "1.0.0"
   },
   "public_release_allowed": false,
-  "result_sha256": "2dba79a183d0f9283a4416311f3edadfe052f106aecbfb4e4a9dfce5dd1ed5b0",
+  "result_sha256": "69d1c53d68bf6c9cf1e04e1e2ce1e9280e8886946e4dcad192eea320a6c9a714",
   "source_stage": 381,
   "stage": 382,
   "statement": "Stage382 observes Stage377 completion under a versioned policy. It does not fabricate upstream completion and does not automatically upgrade formal acceptance.",
   "upstream_state": {
-    "stage377_complete": false,
-    "stage377_decision": "rfc3161_verified_opentimestamps_pending",
-    "stage377_effective_final_acceptance": false,
-    "stage377_result_path": "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json",
-    "stage377_result_sha256": "74288a3c2556de86699259c93f9a8de9b38c6f30ee0a7a0ba031bebbc55b7cdc",
-    "stage377_verified_proof_count": 1
+    "stage377_complete": true,
+    "stage377_decision": "dual_timestamp_final_acceptance_verified",
+    "stage377_effective_final_acceptance": true,
+    "stage377_result_path": "docs/timestamp-finalization/final/run-33075714532/stage377_dual_timestamp_finalization_result.json",
+    "stage377_result_sha256": "372d3c40f5b6f84ab58913e40f8d1f232013516303c0bd79330e9041f1a9b6b9",
+    "stage377_verified_proof_count": 2
   },
   "verification_mode": "upstream_finalization_recovery_and_policy_activation",
-  "verification_status": "verified_pending_upstream"
+  "verification_status": "stage377_complete_stage378_pending"
 }
