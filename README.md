@@ -6,8 +6,8 @@
 
 <!-- STAGE382_ROOT_README_START -->
 
-Stage382 extends Stage381 by binding the unresolved Stage377
-dual-timestamp final-acceptance requirements to a fixed,
+Stage382 extends Stage381 by binding the finalized Stage377
+dual-timestamp final-acceptance evidence to a fixed,
 versioned policy profile.
 
 Stage382 preserves Stage377, Stage378, Stage379, Stage380, and
@@ -50,28 +50,35 @@ Stage382 policy-bound verification
 
 ```text
 Stage377 decision:
-rfc3161_verified_opentimestamps_pending
+dual_timestamp_final_acceptance_verified
 
 Stage377 verified proof count:
-1
+2
 
 Stage377 effective final acceptance:
-false
+true
 
 Stage378 ready:
 false
 
+Stage378 reverification required:
+true
+
 Stage382 decision:
-policy_bound_final_acceptance_pending
+policy_bound_stage378_reverification_required
 
 Stage382 verification status:
-verified_pending_upstream
+stage377_complete_stage378_pending
 
 Critical failure count:
 0
 ```
 
-This is the intended Fail-Closed waiting state.
+This is the intended Fail-Closed transition state after Stage377 completion.
+
+The Stage382 policy is activated, but Stage378 must now be reverified
+against the finalized Stage377 evidence before downstream reverification
+can proceed.
 
 Stage382 does not generate a replacement OpenTimestamps proof and does
 not weaken the requirement for two independently verified timestamp

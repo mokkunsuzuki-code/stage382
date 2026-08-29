@@ -58,35 +58,41 @@ Stage382 policy-bound result
 
 ## Current State
 
-The current Stage377 result reports:
+The finalized Stage377 result reports:
 
 ```text
 decision:
-rfc3161_verified_opentimestamps_pending
+dual_timestamp_final_acceptance_verified
 
 verified_proof_count:
-1
+2
 
 effective_final_acceptance:
-false
+true
 ```
 
 Therefore, the current Stage382 decision is:
 
 ```text
-policy_bound_final_acceptance_pending
+policy_bound_stage378_reverification_required
 ```
 
 Current Stage382 status:
 
 ```text
 verification_status:
-verified_pending_upstream
+stage377_complete_stage378_pending
 
 critical_failure_count:
 0
 
 policy_activated:
+true
+
+stage378_reverification_required:
+true
+
+stage378_ready:
 false
 
 formal_acceptance:
@@ -99,12 +105,12 @@ public_release_allowed:
 false
 ```
 
-This is the expected Fail-Closed state.
+This is the expected Fail-Closed transition state.
 
-Stage382 confirms that the policy, upstream records, Stage380 package
-integrity, and Stage381 cross-platform reproducibility are internally
-consistent. It does not convert the incomplete Stage377 state into a
-completed state.
+Stage382 confirms that Stage377 now satisfies the fixed dual-timestamp
+policy requirements. It does not automatically issue formal acceptance.
+Stage378 must be reverified against the finalized Stage377 evidence
+before downstream reverification can continue.
 
 ## Versioned Policy Profile
 
@@ -153,16 +159,19 @@ After Stage377 completes, Stage382 does not automatically issue formal
 acceptance. It changes to a state requiring verified downstream
 reexecution.
 
-Expected transition:
+Current and expected transition:
 
 ```text
 Stage377 complete
         |
         v
-policy_bound_upstream_finalization_ready_for_downstream_reverification
+policy_bound_stage378_reverification_required
         |
         v
 Stage378 reverification
+        |
+        v
+policy_bound_upstream_finalization_ready_for_downstream_reverification
         |
         v
 Stage379 reverification
