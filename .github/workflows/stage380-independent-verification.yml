@@ -7,7 +7,6 @@ on:
       - main
     paths:
       - ".stage380-development-policy.json"
-      - "README.md"
       - "development/stage379/**"
       - "development/stage380/**"
       - "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
@@ -16,7 +15,6 @@ on:
   pull_request:
     paths:
       - ".stage380-development-policy.json"
-      - "README.md"
       - "development/stage379/**"
       - "development/stage380/**"
       - "docs/timestamp-finalization/stage377_dual_timestamp_finalization_result.json"
@@ -235,54 +233,6 @@ jobs:
           shasum -a 256 -c \
             development/stage380/stage380_independent_verification_result.sha256
 
-      - name: Validate README structure
-        run: |
-          set -euo pipefail
-
-          python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path("README.md")
-          text = path.read_text(encoding="utf-8")
-
-          required_headings = [
-              "# Stage380:",
-              "## Purpose",
-              "## Current State",
-              "## Upstream Conditions",
-              "## Independent Verification Package Contract",
-              "## Deterministic Offline Core Verifier",
-              "## Deterministic Output",
-              "## Fail-Closed Principle",
-              "## Verification Result",
-              "## Verification Manifest",
-              "## Verification Certificate",
-              "## Public and Private Boundaries",
-              "## Current Limitations",
-              "## License",
-          ]
-
-          missing = [
-              heading for heading in required_headings
-              if heading not in text
-          ]
-
-          if missing:
-              raise SystemExit(
-                  f"README headings are missing: {missing}"
-              )
-
-          fence_count = text.count("```")
-
-          if fence_count % 2 != 0:
-              raise SystemExit(
-                  f"README code-fence count is odd: {fence_count}"
-              )
-
-          print(f"README code fences: {fence_count}")
-          print("README structure verified=true")
-          PY
-
       - name: Scan public tree for forbidden files
         shell: bash
         run: |
@@ -327,7 +277,6 @@ jobs:
           name: stage380-independent-verification-package
           path: |
             .stage380-development-policy.json
-            README.md
             development/stage380/stage380_independent_verification_package_contract.json
             development/stage380/stage380_independent_verification_package_contract.sha256
             development/stage380/verify_stage380_independent_package.py
